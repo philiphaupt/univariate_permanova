@@ -1,17 +1,21 @@
-# subset community data matrix, one column at a time, perform PERMANOVA, and write resutls to file
-# user has to supply com.dat, covar.dat, formula and number of perm and a filename (at this stage the formula uses Euclidean distance as per Anderson & Millar 2004)
-# function requires vegan 4.1or higher , and dplyr pacakges (Oksanen et al 2016, Wickham et al 2017)
-# formula should be written as if for full community data frame, which is then subsetted withi the function
+#Author: Philip Haupt
+#Date: 2017-11-08
+#Aim: Perform Univariate permanova cycling one column at a time through test.
+# Subset community data matrix, one column at a time, perform PERMANOVA, and write resutls to file
+# User has to supply community data matrix (com.dat), covariate data (covar.dat), formula (frml) and number of permutations (nperm) and a filename 
+# The formula uses Euclidean distance as per (Anderson & Millar 2004)
+# Function requires vegan 4.1 or higher and dplyr pacakges (Oksanen et al 2016, Wickham et al 2017)
+# The formula should be written as if for full community data frame, which is then subsetted within the function
 
-univariate.permanova.each.column <- function(com.dat, covar.dat, frml, nperm, filename){
+univariate.permanova <- function(com.dat, covar.dat, frml, nperm, filename){
         tbl.results <- data.frame(matrix(NA,nrow = (ncol(covar.dat)+1), ncol = 4)) # create table in which results will be stored
-        row.names(tbl.results) <- c(colnames(covar.dat),"Residual") # generate row.names
+        row.names(tbl.results) <- c(colnames(covar.dat),"Residual") # generate row names
         colnames(tbl.results) <-  c("Df", "SumOfSqs", "F", "Pr(>F)") # generate col names
         com.taxa <- data.frame(matrix(rep(NA,ncol(covar.dat)+1))) # create table for taxa table - to bound to results at end
-        names(com.taxa) <- "taxa" # set column bane for taxa table
+        names(com.taxa) <- "taxa" # set column name for taxa table
 
         
-        #subset: # use one column ata time starting at 1, cycling through to the toal number of columns.
+        #subset: # use one column at a time starting at 1, cycling through to the total number of columns.
         for (i in 1:ncol(com.dat)) {
                 com.dat.subset <- com.dat[i] #subsetted data
                 #dis.comm.ctroph.maxn.subset <- vegan::vegdist(com.dat.subset, method = "euclidean") # determined in adonis - not required, not used, but kept for future use
