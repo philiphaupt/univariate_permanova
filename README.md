@@ -12,7 +12,10 @@ or multiple matrices requiring a significant amount of time to isolate,
 and analyse each species.
 
 This function aims to carry out Univariate PERMANOVA (sequential) for each species within a community matrix, 
-and write the results to a csv file.
+and write the results to a csv file. 
+
+-PLEASE NOTE THAT YOU MAY NEED TO MAKE MINOR MODIFICATIONS TO MAKE THIS WORK FOR YOUR DATA- I HOPE TO COMPLETELY FUNCTIONALISE THIS, BUT IT NEEDS A BIT OF WORK STILL
+
 We made use of the existing functionality of the vegan community ecology (https://CRAN.R-project.org/package=vegan) 
 and dplyr (https://CRAN.R-project.org/package=dplyr) packages in R,
 and added some code to isolate and loop through the matrix, carrying out univariate PERMANOVA on each column. 
